@@ -11,7 +11,7 @@ import SwiftUI
 struct BookSpaceUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(books: Book.sampleData)
+            ContentView(books: .constant(Book.sampleData))
         }
     }
 }

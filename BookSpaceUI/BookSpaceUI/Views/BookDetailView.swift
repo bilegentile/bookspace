@@ -18,6 +18,7 @@ struct BookDetailView: View {
                         Button(action: {}){
                                 Image(systemName: "book.fill")
                         }
+                        .accessibilityHidden(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                         .padding()
                         .background(.orange)
                         .foregroundStyle(.white)
@@ -36,6 +37,7 @@ struct BookDetailView: View {
                         .aspectRatio(contentMode: .fit)
                         .clipShape(RoundedRectangle(cornerRadius: 10), style: FillStyle())
                         .padding(100)
+                        .accessibilityHidden(true)
                     Text(book.bookName)
                         .font(.title)
                         .bold()

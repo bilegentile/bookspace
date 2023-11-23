@@ -9,7 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var searchText: String = ""
-    @State var books: [Book]
+    @Binding var books: [Book]
+    
+    @State private var newBook: Book = Book.emptyBook
+    @State private var isPresentingNewBookView = false
 
     var body: some View {
         NavigationStack {
@@ -22,13 +25,37 @@ struct ContentView: View {
             .navigationTitle("Library")
             .searchable(text: $searchText)
             .toolbar{
-                Button(action: {}) {
+                Button(action: {
+                    isPresentingNewBookView = true
+                }) {
                     Image(systemName: "plus")
                         .foregroundColor(.teal)
                 }
+                .accessibilityLabel("New Book")
                 Button(action: {}) {
                     Image(systemName: "ellipsis.circle")
                         .foregroundColor(.teal)
+                }
+                .accessibilityLabel("Filter Books")
+            }
+            .sheet(isPresented: $isPresentingNewBookView) {
+                NavigationStack{
+                    AddBookView(books: $books)
+                        .navigationTitle("New Book")
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Cancel") {
+                                    isPresentingNewBookView = false
+                                }
+                                .foregroundStyle(.red)
+                            }
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("Save") {
+                                    isPresentingNewBookView = false
+                                }
+                                .foregroundStyle(.teal)
+                            }
+                        }
                 }
             }
         }
@@ -37,5 +64,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(books: Book.sampleData)
+    ContentView(books: .constant(Book.sampleData))
 }

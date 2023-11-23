@@ -8,24 +8,41 @@
 import SwiftUI
 
 struct AddBookView: View {
+    @Binding var books: [Book]
+    @State private var newBook: Book = Book.emptyBook
     
     var body: some View {
-        VStack {
-            Image("nobookimage")
-                .resizable()
-            Button(action: {}){
-                Text("Edit Image")
+        NavigationStack {
+            ScrollView {
+                VStack {
+                    Image("nobookimage")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .accessibilityHidden(true)
+                    Button(action: {}){
+                        Text("Edit Image")
+                    }
+                    .accessibilityHidden(true)
+                    .clipShape(Capsule())
+                    .foregroundStyle(.white)
+                    .background(.teal)
+                    .padding()
+                }
+                Section("Title"){
+                    HStack {
+                        TextField("Insert the title...", text: $newBook.bookName)
+                        Button(action:{}){
+                            Image(systemName: "plus.circle.fill")
+                                .accessibilityLabel("Add Book Name")
+                        }
+                    }
+                    .padding()
+                }
             }
-            .clipShape(RoundedRectangle(cornerRadius: 25.0))
-            .foregroundStyle(.white)
-            .background(.teal)
-            .padding()
         }
-        //TextField("Title", text: $)
-        
     }
 }
 
 #Preview {
-    AddBookView()
+    AddBookView(books: .constant(Book.sampleData))
 }
