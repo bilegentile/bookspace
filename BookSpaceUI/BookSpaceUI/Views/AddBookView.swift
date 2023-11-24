@@ -23,10 +23,10 @@ struct AddBookView: View {
                         Text("Edit Image")
                     }
                     .accessibilityHidden(true)
-                    .clipShape(Capsule())
-                    .foregroundStyle(.white)
-                    .background(.teal)
                     .padding()
+                    .background(.teal)
+                    .foregroundStyle(.white)
+                    .clipShape(Capsule())
                 }
                 Section("Title"){
                     HStack {
@@ -34,6 +34,16 @@ struct AddBookView: View {
                         Button(action:{}){
                             Image(systemName: "plus.circle.fill")
                                 .accessibilityLabel("Add Book Name")
+                        }
+                    }
+                    .padding()
+                }
+                Section("Author"){
+                    HStack {
+                        TextField("Insert the author...", text: $newBook.author)
+                        Button(action:{}){
+                            Image(systemName: "plus.circle.fill")
+                                .accessibilityLabel("Add Book Author")
                         }
                     }
                     .padding()
